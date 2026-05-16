@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - MY LIFE REAL ESTATE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .admin-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .admin-header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .admin-header .stats {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .stat-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+    
+    .admin-container {
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    
+    .filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 10px 20px;
+      border: none;
+      background: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background: #1e3a5f;
+      color: white;
+    }
+    
+    .submissions-table {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    thead {
+      background: #1e3a5f;
+      color: white;
+    }
+    
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    
+    th {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    tbody tr:hover {
+      background: #f9f9f9;
+    }
+    
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .status-new {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+    
+    .status-contacted {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+    
+    .status-closed {
+      background: #e8f5e9;
+      color: #388e3c;
+    }
+    
+    .action-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 5px;
+      transition: all 0.3s;
+    }
+    
+    .btn-view {
+      background: #1e3a5f;
+      color: white;
+    }
+    
+    .btn-contact {
+      background: #f57c00;
+      color: white;
+    }
+    
+    .btn-close {
+      background: #388e3c;
+      color: white;
+    }
+    
+    .btn-delete {
+      background: #d32f2f;
+      color: white;
+    }
+    
+    .action-btn:hover {
+      opacity: 0.8;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .detail-row {
+      margin-bottom: 15px;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    
+    .detail-value {
+      color: #333;
+      line-height: 1.5;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .refresh-btn {
+      background: #1e3a5f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .refresh-btn:hover {
+      background: #2d5a87;
+    }
+    
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .submissions-table {
+        overflow-x: auto;
+      }
+      
+      table {
+        min-width: 600px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-header">
+    <div>
+      <h1><i class="fas fa-building"></i> MY LIFE REAL ESTATE - Admin Dashboard</h1>
+    </div>
+    <div class="stats">
+      <div class="stat-badge">
+        <i class="fas fa-envelope"></i> Total: <span id="totalCount">0</span>
+      </div>
+      <div class="stat-badge">
+        <i class="fas fa-star"></i> New: <span id="newCount">0</span>
+      </div>
+      <button class="refresh-btn" onclick="loadSubmissions()">
+        <i class="fas fa-sync"></i> Refresh
+      </button>
+    </div>
+  </div>
+  
+  <div class="admin-container">
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterByStatus('all')">All</button>
+      <button class="filter-btn" onclick="filterByStatus('new')">New</button>
+      <button class="filter-btn" onclick="filterByStatus('contacted')">Contacted</button>
+      <button class="filter-btn" onclick="filterByStatus('closed')">Closed</button>
+    </div>
+    
+    <div class="submissions-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Service</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="submissionsBody">
+          <tr>
+            <td colspan="7" class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No submissions yet</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- View Modal -->
+  <div id="viewModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Submission Details</h2>
+        <button class="modal-close" onclick="closeModal('viewModal')">&times;</button>
+      </div>
+      <div id="viewModalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    let allSubmissions = [];
+    let currentFilter = 'all';
+    
+    // Load submissions on page load
+    document.addEventListener('DOMContentLoaded', loadSubmissions);
+    
+    async function loadSubmissions() {
+      try {
+        const response = await fetch('/api/submissions');
+        allSubmissions = await response.json();
+        updateStats();
+        renderSubmissions();
+      } catch (error) {
+        console.error('Error loading submissions:', error);
+        alert('Error loading submissions');
+      }
+    }
+    
+    function updateStats() {
+      document.getElementById('totalCount').textContent = allSubmissions.length;
+      document.getElementById('newCount').textContent = allSubmissions.filter(s => s.status === 'new').length;
+    }
+    
+    function filterByStatus(status) {
+      currentFilter = status;
+      
+      // Update active button
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      renderSubmissions();
+    }
+    
+    function renderSubmissions() {
+      const tbody = document.getElementById('submissionsBody');
+      let filtered = allSubmissions;
+      
+      if (currentFilter !== 'all') {
+        filtered = allSubmissions.filter(s => s.status === currentFilter);
+      }
+      
+      // Sort by date (newest first)
+      filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No submissions found</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = filtered.map(sub => `
+        <tr>
+          <td>${formatDate(sub.timestamp)}</td>
+          <td>${escapeHtml(sub.name)}</td>
+          <td>${escapeHtml(sub.email)}</td>
+          <td>${escapeHtml(sub.phone)}</td>
+          <td>${escapeHtml(sub.service)}</td>
+          <td><span class="status-badge status-${sub.status}">${sub.status}</span></td>
+          <td>
+            <button class="action-btn btn-view" onclick="viewSubmission('${sub.id}')">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="action-btn btn-contact" onclick="updateStatus('${sub.id}', 'contacted')">
+              <i class="fas fa-phone"></i>
+            </button>
+            <button class="action-btn btn-close" onclick="updateStatus('${sub.id}', 'closed')">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="action-btn btn-delete" onclick="deleteSubmission('${sub.id}')">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    function viewSubmission(id) {
+      const sub = allSubmissions.find(s => s.id === id);
+      if (!sub) return;
+      
+      const content = document.getElementById('viewModalContent');
+      content.innerHTML = `
+        <div class="detail-row">
+          <div class="detail-label">Name</div>
+          <div class="detail-value">${escapeHtml(sub.name)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Email</div>
+          <div class="detail-value">${escapeHtml(sub.email)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Phone</div>
+          <div class="detail-value">${escapeHtml(sub.phone)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Service</div>
+          <div class="detail-value">${escapeHtml(sub.service)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Form Type</div>
+          <div class="detail-value">${escapeHtml(sub.formType)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Page</div>
+          <div class="detail-value">${escapeHtml(sub.page)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Message</div>
+          <div class="detail-value">${escapeHtml(sub.message)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Submitted</div>
+          <div class="detail-value">${formatDate(sub.timestamp)}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Status</div>
+          <div class="detail-value"><span class="status-badge status-${sub.status}">${sub.status}</span></div>
+        </div>
+      `;
+      
+      document.getElementById('viewModal').style.display = 'flex';
+    }
+    
+    async function updateStatus(id, status) {
+      if (!confirm(`Update status to "${status}"?`)) return;
+      
+      try {
+        const response = await fetch(`/api/submissions/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        
+        if (response.ok) {
+          loadSubmissions();
+        } else {
+          alert('Error updating status');
+        }
+      } catch (error) {
+        console.error('Error updating status:', error);
+        alert('Error updating status');
+      }
+    }
+    
+    async function deleteSubmission(id) {
+      if (!confirm('Are you sure you want to delete this submission?')) return;
+      
+      try {
+        const response = await fetch(`/api/submissions/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          loadSubmissions();
+        } else {
+          alert('Error deleting submission');
+        }
+      } catch (error) {
+        console.error('Error deleting submission:', error);
+        alert('Error deleting submission');
+      }
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

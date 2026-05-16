@@ -3,7 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Site</title>
+    <title>MY LIFE REAL ESTATE - Your Trusted Real Estate Partner in Ghana</title>
+    <meta name="description" content="MY LIFE REAL ESTATE - Secure property ownership made simple. Land sales, property management, and real estate investment services in Ghana with verified, litigation-free properties." />
+    <meta name="keywords" content="real estate Ghana, land sales, property management, affordable housing, Accra, verified lands, property investment" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MY LIFE REAL ESTATE - Your Trusted Real Estate Partner" />
+    <meta property="og:description" content="Secure property ownership made simple. Land sales, property management, and real estate investment services in Ghana." />
+    <meta property="og:image" content="assets/services/services1.jpg" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MY LIFE REAL ESTATE - Your Trusted Real Estate Partner" />
+    <meta name="twitter:description" content="Secure property ownership made simple. Land sales, property management, and real estate investment services in Ghana." />
 
     <link rel="stylesheet" href="css/style.css" />
     <link
@@ -24,29 +37,25 @@
         <div class="header-contact">
           <p>Call Us: <a href="tel:+233200000000">020-0000000</a></p>
         </div>
-
-        <div class="header-social">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-x-twitter"></i></a>
-          <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
-        </div>
       </div>
 
       <div class="header-bottom">
-        <nav class="header-nav">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="header-nav" id="headerNav">
           <ul class="nav-list">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Who We Are</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#hero" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#wwa" class="nav-link">Who We Are</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#quote" class="nav-link">Contact</a></li>
           </ul>
         </nav>
 
         <div class="header-cta">
-          <button class="btn btn-primary" type="submit">GET A QUOTE</button>
+          <button class="btn btn-primary" type="button" onclick="document.getElementById('quote').scrollIntoView({behavior: 'smooth'})">GET A QUOTE</button>
         </div>
       </div>
     </header>
@@ -54,13 +63,8 @@
     <!-- ================= MAIN ================= -->
     <main>
       <!-- HERO -->
-      <section class="hero">
-        <video autoplay muted loop playsinline>
-          <source
-            src="assets/vid-bg/Construction Crane, Construction Site, Oostende. Free Stock Video.mp4"
-            type="video/mp4"
-          />
-        </video>
+      <section class="hero" id="hero">
+        <div class="hero-background"></div>
 
         <div class="hero-content">
           <h3>Your Trusted Real Estate Partner</h3>
@@ -72,8 +76,8 @@
             Land Sales • Property Management • Real Estate Investment in Ghana
           </p>
           <div class="hero-actions">
-            <button class="btn btn-primary">Request a Quote</button>
-            <button class="btn btn-secondary">View Projects</button>
+            <button class="btn btn-primary" onclick="document.getElementById('quote').scrollIntoView({behavior: 'smooth'})">Request a Quote</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">View Projects</button>
           </div>
         </div>
       </section>
@@ -103,7 +107,7 @@
             </div>
 
             <div class="stat-box">
-              <h3>100+</h3>
+              <h3>50+</h3>
               <p>Properties Facilitated</p>
             </div>
 
@@ -116,7 +120,7 @@
       </section>
 
       <!-- SERVICES -->
-      <section class="services">
+      <section class="services" id="services">
         <div class="section-header">
           <h2 class="section-title">Quality Services</h2>
 
@@ -154,8 +158,8 @@
         </div>
       </section>
 
-      <!-- WHO WE ARE -->S
-      <section class="wwa">
+      <!-- WHO WE ARE -->
+      <section class="wwa" id="wwa">
         <div class="wwa-left">
           <div class="wwa-content">
             <h2 class="section-title">Who We Are</h2>
@@ -164,30 +168,42 @@
               trusted real estate company dedicated to providing secure,
               transparent, and value-driven property solutions in Ghana.
             </p>
-            <button class="btn btn-primary">Learn More</button>
+            <button class="btn btn-primary" onclick="toggleLearnMore()">Learn More</button>
+            <div id="learnMoreContent" class="learn-more-content" style="display: none;">
+              <h3>Our Story</h3>
+              <p>
+                Founded in 2020, MY LIFE REAL ESTATE AND PROPERTY MANAGEMENT has grown from a small family business to one of Ghana's most trusted real estate companies. Our journey began with a simple mission: to make property ownership accessible, secure, and stress-free for everyone.
+              </p>
+              <p>
+                Today, we have facilitated over 100+ successful property transactions, helping individuals, families, and investors achieve their real estate dreams. Our team combines decades of experience in land litigation, property management, and real estate development.
+              </p>
+              <h3>Our Values</h3>
+              <ul>
+                <li><strong>Integrity:</strong> We believe in complete transparency in all our dealings</li>
+                <li><strong>Security:</strong> Every property we offer is verified and litigation-free</li>
+                <li><strong>Excellence:</strong> We deliver professional service that exceeds expectations</li>
+                <li><strong>Innovation:</strong> We continuously improve our processes to serve you better</li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <div class="wwa-right">
-  <div class="wwa-content">
-    <h2>Our Mission</h2>
+          <div class="wwa-content">
+            <h2>Our Mission</h2>
 
-    <ul class="mission-list">
-      <li><i class="fa-solid fa-house"></i> Make property ownership accessible and stress-free</li>
-      <li><i class="fa-solid fa-shield-halved"></i> Provide secure, verified lands and transparent transactions</li>
-      <li><i class="fa-solid fa-file-signature"></i> Ensure seamless documentation and legal processes</li>
-      <li><i class="fa-solid fa-sack-dollar"></i> Offer affordable housing solutions for all income levels</li>
-      <li><i class="fa-solid fa-building"></i> Build sustainable communities and infrastructure</li>
-      <li><i class="fa-solid fa-star"></i> Deliver professional service that exceeds expectations</li>
-    </ul>
-  </div>
-</div>
+            <ul class="mission-list">
+              <li><i class="fa-solid fa-house"></i> Make property ownership accessible and stress-free</li>
+              <li><i class="fa-solid fa-shield-halved"></i> Provide secure, verified lands and transparent transactions</li>
+              <li><i class="fa-solid fa-file-signature"></i> Ensure seamless documentation and legal processes</li>
+              <li><i class="fa-solid fa-sack-dollar"></i> Offer affordable housing solutions for all income levels</li>
+              <li><i class="fa-solid fa-building"></i> Build sustainable communities and infrastructure</li>
+              <li><i class="fa-solid fa-star"></i> Deliver professional service that exceeds expectations</li>
+            </ul>
+          </div>
         </div>
       </section>
       <section class="why-choose-us">
-        <div class="why-overlay">
-
-        </div>
         <h2 class="section-title">Why Choose Us</h2>
 
         <div class="why-grid">
@@ -229,76 +245,66 @@
         </div>
       </section>
       <!-- PROJECTS -->
-      <section class="projects">
+      <section class="projects" id="projects">
         <div class="section-header">
-          <h2 class="section-title">Available Properties</h2>
-
-          <a href="#" class="view-more"> View More <span>→</span> </a>
+          <h2 class="section-title">Projects We Deliver</h2>
         </div>
 
         <div class="projects-grid">
-          <div class="project-card">
-            <img src="assets/services/services1.jpg" alt="" />
-            <h3>Residential Complex</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
+          <a href="projects/residential-plots.html" class="project-card">
+            <img src="assets/services/services1.jpg" alt="Residential Plots" />
+            <h3>Residential Plots</h3>
+          </a>
 
-          <div class="project-card">
-            <img src="assets/services/services2.jpg" alt="" />
-            <h3>Modern Architecture</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
+          <a href="projects/managed-properties.html" class="project-card">
+            <img src="assets/services/services2.jpg" alt="Managed Properties" />
+            <h3>Managed Properties</h3>
+          </a>
 
-          <div class="project-card">
-            <img src="assets/services/services3.jpg" alt="" />
-            <h3>Urban Renovation</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
+          <a href="projects/investment-advisory.html" class="project-card">
+            <img src="assets/services/services3.jpg" alt="Investment Advisory" />
+            <h3>Investment Advisory</h3>
+          </a>
 
-          <div class="project-card">
-            <img src="assets/services/services4.jpg" alt="" />
-            <h3>Infrastructure Works</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-          <div class="project-card">
-            <img src="assets/services/services1.jpg" alt="" />
-            <h3>Residential Complex</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-          <div class="project-card">
-            <img src="assets/services/services1.jpg" alt="" />
-            <h3>Residential Complex</h3>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
+          <a href="projects/housing-development.html" class="project-card">
+            <img src="assets/services/services4.jpg" alt="Housing Development" />
+            <h3>Housing Development</h3>
+          </a>
+          <a href="projects/commercial-plaza.html" class="project-card">
+            <img src="assets/services/services5.jpg" alt="Commercial Plaza" />
+            <h3>Commercial Plaza</h3>
+          </a>
+          <a href="projects/luxury-villa.html" class="project-card">
+            <img src="assets/services/services1.jpg" alt="Luxury Villa" />
+            <h3>Luxury Villa</h3>
+          </a>
         </div>
       </section>
 
       <!-- ABOUT -->
-      <section class="about">
+      <section class="about" id="about">
         <div class="about-container">
           <div class="about-text">
-            <h2 class="section-title">About Site</h2>
+            <h2 class="section-title">About MY LIFE REAL ESTATE</h2>
 
             <p>
-              Site is a construction and engineering company dedicated to
-              delivering reliable, high-quality infrastructure solutions across
-              Ghana. We specialize in building residential, commercial, and
-              industrial projects with a strong focus on durability, safety, and
-              modern design.
+              MY LIFE REAL ESTATE AND PROPERTY MANAGEMENT is a fast-growing and
+              trusted real estate company dedicated to providing secure,
+              transparent, and value-driven property solutions in Ghana.
             </p>
 
             <p>
-              With a team of experienced engineers, architects, and project
-              managers, we combine innovation with practical expertise to bring
-              every project to life efficiently and within budget.
+              We specialize in land sales, property management, real estate advisory,
+              and development services. Our team of experienced professionals
+              ensures every transaction is verified, litigation-free, and legally compliant.
             </p>
 
             <p>
-              From concept to completion, Site is committed to excellence,
+              From land acquisition to property management, we are committed to excellence,
               transparency, and long-term value for our clients and communities.
             </p>
 
-            <a href="about.html" class="btn btn-secondary">Read More</a>
+            <button class="btn btn-secondary" onclick="document.getElementById('quote').scrollIntoView({behavior: 'smooth'})">Contact Us</button>
           </div>
           <div class="about-image">
             <img src="assets/about/about1.jpg" alt="" />
@@ -310,7 +316,9 @@
 
         <div class="leadership-grid">
           <div class="leader-card">
-            <img src="assets/team/founder.jpg" alt="Founder" />
+            <div class="leader-placeholder">
+              <i class="fas fa-user"></i>
+            </div>
             <h3>Clement Adu-Boahene</h3>
             <span>Founder</span>
             <p>
@@ -320,7 +328,9 @@
           </div>
 
           <div class="leader-card">
-            <img src="assets/team/ceo.jpg" alt="CEO" />
+            <div class="leader-placeholder">
+              <i class="fas fa-user"></i>
+            </div>
             <h3>Lydia Adzo Agbenyo</h3>
             <span>Chief Executive Officer</span>
             <p>
@@ -343,7 +353,7 @@
       </section>
 
       <!-- QUOTE + FAQ -->
-      <section class="quote-faq">
+      <section class="quote-faq" id="quote">
         <div class="quote">
           <div class="quote-container">
             <h2 class="section-title">Get a Quote</h2>
@@ -353,21 +363,44 @@
               detailed estimate for your project.
             </p>
 
-            <form class="quote-form">
-              <input type="text" placeholder="Your Full Name" />
-              <input type="email" placeholder="Your Email Address" />
-              <input type="tel" placeholder="Your Phone Number" />
+            <form class="quote-form" id="quoteForm">
+              <input type="text" name="name" placeholder="Your Full Name" required />
+              <input type="email" name="email" placeholder="Your Email Address" required />
+              <input type="tel" name="phone" placeholder="Your Phone Number" required />
 
-              <select>
-                <option>Select Service</option>
-                <option>Construction</option>
-                <option>Engineering</option>
+              <select name="service" required>
+                <option value="">Select Service</option>
+                <option value="land-sales">Land Sales</option>
+                <option value="property-management">Property Management</option>
+                <option value="property-advisory">Property Advisory</option>
+                <option value="real-estate-development">Real Estate Development</option>
               </select>
 
-              <textarea placeholder="Tell us about your project..."></textarea>
+              <textarea name="message" placeholder="Tell us about your project..." required></textarea>
 
-              <button class="btn btn-primary">Send Request</button>
+              <button type="submit" class="btn btn-primary">Send Request</button>
             </form>
+
+            <div class="quote-social">
+              <h4>Connect With Us</h4>
+              <div class="footer-social">
+                <a href="https://facebook.com/yourpage" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://wa.me/233200000000" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://instagram.com/yourpage" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://www.snapchat.com/add/yourusername" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-snapchat-ghost"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="faq">
@@ -402,10 +435,10 @@
 
           <div class="faq-item">
             <button class="faq-question">
-              Can I invest with a flexible budget?
+              What payment plans do you offer?
             </button>
             <div class="faq-answer">
-              Yes, we provide options for different income levels.
+              We offer flexible payment plans including installment options and financing assistance.
             </div>
           </div>
         </div>
@@ -416,8 +449,13 @@
         <h2 class="section-title">Locate Us</h2>
 
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18..."
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.7657968147757!2d-0.2075500247595779!3d5.603717094451965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x102076c8a7e7e3d9%3A0x4b0e5e5e5e5e5e5e!2sAccra%2C%20Ghana!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+          width="100%"
+          height="400"
+          style="border:0;"
+          allowfullscreen=""
           loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
         >
         </iframe>
       </section>
@@ -474,18 +512,18 @@
 
         <div class="footer-links">
           <h4>Quick Links</h4>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Projects</a>
-          <a href="#">Contact</a>
+          <a href="#hero">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#quote">Contact</a>
         </div>
 
         <div class="footer-services">
           <h4>Services</h4>
-          <a href="#">Construction</a>
-          <a href="#">Engineering</a>
-          <a href="#">Real Estate</a>
-          <a href="#">Mining</a>
+          <a href="#services">Land Sales</a>
+          <a href="#services">Property Management</a>
+          <a href="#services">Property Advisory</a>
+          <a href="#services">Real Estate Development</a>
         </div>
 
         <div class="footer-contact">

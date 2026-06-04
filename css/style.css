@@ -1332,6 +1332,13 @@ img {
 
 /* ================= MOBILE VIEW ================= */
 @media (max-width: 768px) {
+  .header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #202222;
+    border-bottom: 1px solid #F3A80A;
+  }
   /* Header layout */
   .header-top {
     flex-direction: column;
@@ -1339,16 +1346,20 @@ img {
     position: relative;
     gap: 15px;
     padding-top: 60px;
+    border-bottom:none;
   }
 
   .header-top,
   .header-bottom {
     text-align: center;
   }
+  .header-bottom {
+    padding: 0px;
+  }
 
   /* Logo positioned at top */
   .logo-wrapper {
-    position: fixed;
+    /* position: fixed; */
     top: 8px;
     left: 20px;
   }
@@ -1363,7 +1374,7 @@ img {
   }
 
   .logo-text .tagline {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 
   /* Header contact centered */
@@ -1398,6 +1409,7 @@ img {
 
   .hamburger:hover {
     background: rgba(243, 168, 10, 0.1);
+]
   }
 
   .hamburger span {
@@ -1411,7 +1423,7 @@ img {
 
   /* Animate hamburger into X */
   .hamburger.open span {
-    background: var(--accent);
+    background: #1F2A44;
   }
 
   .hamburger.open span:nth-child(1) {
@@ -1429,9 +1441,9 @@ img {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 70%;
+    width: 55%;
     height: 100%;
-    background: #1f2a44;
+    background: #F3A80A;
     padding-top: 80px;
     transition: right 0.3s ease;
     z-index: 1000;

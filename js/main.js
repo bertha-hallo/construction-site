@@ -1,108 +1,118 @@
-// Mobile Menu Toggle
-const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-const headerNav = document.getElementById('headerNav');
+// ================= HAMBURGER MENU TOGGLE =================
+const hamburger = document.querySelector(".hamburger");
+const headerNav = document.querySelector(".header-nav");
+const navLinks = document.querySelectorAll(".nav-list a");
 
-if (mobileMenuToggle && headerNav) {
-  mobileMenuToggle.addEventListener('click', () => {
-    headerNav.classList.toggle('active');
-    const icon = mobileMenuToggle.querySelector('i');
-    if (headerNav.classList.contains('active')) {
-      icon.classList.remove('fa-bars');
-      icon.classList.add('fa-times');
-    } else {
-      icon.classList.remove('fa-times');
-      icon.classList.add('fa-bars');
-    }
+if (hamburger && headerNav) {
+  // Toggle menu open/close
+  hamburger.addEventListener("click", () => {
+    headerNav.classList.toggle("active");   // slide nav in/out
+    hamburger.classList.toggle("open");     // animate spans into X
+  });
+
+  // Handle nav link clicks
+  navLinks.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault(); // stop default jump
+
+      // Get target section ID from href
+      const targetId = link.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Close menu after navigation
+      headerNav.classList.remove("active");
+      hamburger.classList.remove("open");
+    });
   });
 }
 
-// Close mobile menu when clicking a link
-const navLinks = document.querySelectorAll('.nav-list a');
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    if (headerNav) {
-      headerNav.classList.remove('active');
-      const icon = mobileMenuToggle.querySelector('i');
-      if (icon) {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    }
-  });
-});
 
-// Form Submission Handling
-async function submitForm(form, formType = 'quote') {
+// ================= FORM SUBMISSION HANDLING =================
+async function submitForm(form, formType = "quote") {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
-  
+
   // Add form type and page info
   data.formType = formType;
   data.page = window.location.pathname;
-  
+
   try {
-    const response = await fetch('/api/submit-form', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await fetch("/api/submit-form", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    
+
     const result = await response.json();
-    
+
     if (result.success) {
-      alert('Thank you for your inquiry! We will get back to you within 24 hours.');
+      alert("Thank you for your inquiry! We will get back to you within 24 hours.");
       form.reset();
-      
+
       // Close modal if it's a pricing form
-      const modal = document.getElementById('pricingModal');
-      if (modal) {
-        modal.style.display = 'none';
-      }
+      const modal = document.getElementById("pricingModal");
+      if (modal) modal.style.display = "none";
     } else {
-      alert('Error submitting form. Please try again.');
+      alert("Error submitting form. Please try again.");
     }
   } catch (error) {
-    console.error('Error submitting form:', error);
-    alert('Error submitting form. Please try again.');
+    console.error("Error submitting form:", error);
+    alert("Error submitting form. Please try again.");
   }
 }
 
-const quoteForm = document.getElementById('quoteForm');
+// Quote form
+const quoteForm = document.getElementById("quoteForm");
 if (quoteForm) {
-  quoteForm.addEventListener('submit', (e) => {
+  quoteForm.addEventListener("submit", e => {
     e.preventDefault();
-    submitForm(quoteForm, 'quote');
+    submitForm(quoteForm, "quote");
   });
 }
 
-// Handle pricing forms in project pages
-const pricingForm = document.getElementById('pricingForm');
+// Pricing form (project pages)
+const pricingForm = document.getElementById("pricingForm");
 if (pricingForm) {
-  pricingForm.addEventListener('submit', (e) => {
+  pricingForm.addEventListener("submit", e => {
     e.preventDefault();
-    submitForm(pricingForm, 'pricing');
+    submitForm(pricingForm, "pricing");
   });
 }
 
-// FAQ Accordion
+// ================= FAQ ACCORDION =================
 const faqItems = document.querySelectorAll(".faq-item");
 
 faqItems.forEach(item => {
   const button = item.querySelector(".faq-question");
-
   button.addEventListener("click", () => {
+    // Close other items if you want accordion behavior
+    faqItems.forEach(i => {
+      if (i !== item) i.classList.remove("active");
+    });
+    // Toggle current item
     item.classList.toggle("active");
+
+    // Toggle plus/minus icon
+    const icon = button.querySelector(".faq-icon");
+    if (item.classList.contains("active")) {
+      icon.textContent = "−";
+    } else {
+      icon.textContent = "+";
+    }
   });
 });
 
-// Learn More Toggle
+// ================= LEARN MORE TOGGLE =================
 function toggleLearnMore() {
-  const content = document.getElementById('learnMoreContent');
-  if (content.style.display === 'none') {
-    content.style.display = 'block';
-  } else {
-    content.style.display = 'none';
+  const content = document.getElementById("learnMoreContent");
+  if (content) {
+    content.style.display = (content.style.display === "none" || !content.style.display)
+      ? "block"
+      : "none";
   }
 }
+
